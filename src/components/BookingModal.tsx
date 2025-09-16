@@ -18,7 +18,7 @@ export const BookingModal: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) {
-      // Handle authentication required
+      alert('Please sign in to book a session');
       return;
     }
 

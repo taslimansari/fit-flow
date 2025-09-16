@@ -2,6 +2,7 @@ import React from 'react';
 import { Clock, TrendingUp, Star, ArrowRight } from 'lucide-react';
 import { Program } from '../types';
 import { useApp } from '../contexts/AppContext';
+import { useAuth } from '../contexts/AuthContext';
 
 interface ProgramCardProps {
   program: Program;
@@ -9,6 +10,7 @@ interface ProgramCardProps {
 
 export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const { dispatch } = useApp();
+  const { user } = useAuth();
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -20,6 +22,10 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   };
 
   const handleSelect = () => {
+    if (!user) {
+      alert('Please sign in to select a program');
+      return;
+    }
     dispatch({ type: 'SELECT_PROGRAM', payload: program });
   };
 
