@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Star, Users, Award } from 'lucide-react';
+import { Mail, Star, Users, Award } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export const Hero: React.FC = () => {
@@ -38,13 +38,21 @@ export const Hero: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <button
                 onClick={scrollToPrograms}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 {user ? 'Explore Programs' : 'View Programs'}
               </button>
-              <button className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full font-semibold hover:border-gray-400 transition-colors flex items-center justify-center">
-                <Play className="w-5 h-5 mr-2" />
-                Watch Demo
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                <Mail className="w-5 h-5 mr-2" />
+                Contact Us
               </button>
             </div>
 
