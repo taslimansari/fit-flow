@@ -30,6 +30,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     try {
       if (mode === 'signup') {
+        // Simulate processing time for better UX
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -42,10 +45,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         
         if (error) throw error;
         
-        // Show success message for signup
+        showAlert('success', '🎉 Welcome to FitFlow!', `Account created successfully for ${name}. You can now sign in and start your fitness journey!`);
         alert('Account created successfully! You can now sign in.');
         setMode('signin');
       } else {
+        // Simulate processing time for better UX
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -53,11 +59,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         
         if (error) throw error;
         
-        onClose();
+        showAlert('success', '👋 Welcome Back!', 'You have successfully signed in. Ready to continue your fitness journey?');
       }
     } catch (error: any) {
       setError(error.message);
-    } finally {
+      showAlert('error', '🔒 Authentication Error', error.message || 'Please check your credentials and try again.');
       setLoading(false);
     }
   };

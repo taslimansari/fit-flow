@@ -25,8 +25,11 @@ export const BookingModal: React.FC = () => {
     setIsSubmitting(true);
 
     try {
+      // Simulate booking process
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
       const booking = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         userId: user.id,
         trainerId: selectedTrainer?.id,
         programId: selectedProgram?.id,
@@ -41,10 +44,11 @@ export const BookingModal: React.FC = () => {
       dispatch({ type: 'CLEAR_SELECTION' });
       
       // Here you would typically save to database
-      alert('Booking request submitted successfully!');
+      const itemType = selectedProgram ? 'program' : 'training session';
+      showAlert('success', '🎉 Booking Confirmed!', `Your ${itemType} "${itemName}" has been successfully booked for ${selectedDate} at ${selectedTime}.`);
     } catch (error) {
       console.error('Booking failed:', error);
-      alert('Booking failed. Please try again.');
+      showAlert('error', '❌ Booking Failed', 'Something went wrong while processing your booking. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

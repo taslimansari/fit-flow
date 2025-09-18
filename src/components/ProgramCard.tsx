@@ -23,9 +23,10 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
 
   const handleSelect = () => {
     if (!user) {
-      alert('Please sign in to select a program');
+      showAlert('info', '🔐 Sign In Required', 'Please sign in to select and book this amazing program. Join thousands of others on their fitness journey!');
       return;
     }
+    showAlert('info', '🏋️ Program Selected!', `Great choice! "${program.title}" is now ready for booking. Complete your session details in the booking form.`);
     dispatch({ type: 'SELECT_PROGRAM', payload: program });
   };
 

@@ -14,9 +14,10 @@ export const TrainerCard: React.FC<TrainerCardProps> = ({ trainer }) => {
 
   const handleSelect = () => {
     if (!user) {
-      alert('Please sign in to book a trainer');
+      showAlert('info', '🔐 Sign In Required', 'Please sign in to book a session with our expert trainers. Your fitness transformation awaits!');
       return;
     }
+    showAlert('info', '👨‍💼 Trainer Selected!', `Excellent choice! ${trainer.name} is ready to guide your fitness journey. Complete your booking details next.`);
     dispatch({ type: 'SELECT_TRAINER', payload: trainer });
   };
 
