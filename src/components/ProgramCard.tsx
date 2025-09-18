@@ -3,6 +3,7 @@ import { Clock, TrendingUp, Star, ArrowRight } from 'lucide-react';
 import { Program } from '../types';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useAlert } from '../contexts/AlertContext';
 
 interface ProgramCardProps {
   program: Program;
@@ -11,6 +12,7 @@ interface ProgramCardProps {
 export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const { dispatch } = useApp();
   const { user } = useAuth();
+  const { showAlert } = useAlert();
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {

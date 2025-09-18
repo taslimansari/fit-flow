@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { X, Calendar, Clock, User, CreditCard } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useAlert } from '../contexts/AlertContext';
 
 export const BookingModal: React.FC = () => {
   const { state, dispatch } = useApp();
   const { user } = useAuth();
+  const { showAlert } = useAlert();
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [notes, setNotes] = useState('');
@@ -18,7 +20,7 @@ export const BookingModal: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) {
-      alert('Please sign in to book a session');
+      showAlert('error', '🔐 Authentication Required', 'Please sign in to book a session');
       return;
     }
 
@@ -45,6 +47,7 @@ export const BookingModal: React.FC = () => {
       
       // Here you would typically save to database
       const itemType = selectedProgram ? 'program' : 'training session';
+      const itemName = selectedProgram?.title || selectedTrainer?.name || '';
       showAlert('success', '🎉 Booking Confirmed!', `Your ${itemType} "${itemName}" has been successfully booked for ${selectedDate} at ${selectedTime}.`);
     } catch (error) {
       console.error('Booking failed:', error);

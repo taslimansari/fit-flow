@@ -1,3 +1,7 @@
+import React from 'react';
+import { Alert } from './Alert';
+import { useAlert } from '../../contexts/AlertContext';
+
 export const AlertContainer: React.FC = () => {
   const { alerts, removeAlert } = useAlert();
 

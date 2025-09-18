@@ -3,6 +3,7 @@ import { Star, Award, Calendar, ArrowRight } from 'lucide-react';
 import { Trainer } from '../types';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useAlert } from '../contexts/AlertContext';
 
 interface TrainerCardProps {
   trainer: Trainer;
@@ -11,6 +12,7 @@ interface TrainerCardProps {
 export const TrainerCard: React.FC<TrainerCardProps> = ({ trainer }) => {
   const { dispatch } = useApp();
   const { user } = useAuth();
+  const { showAlert } = useAlert();
 
   const handleSelect = () => {
     if (!user) {

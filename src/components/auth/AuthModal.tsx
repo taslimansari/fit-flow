@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { useAlert } from '../../contexts/AlertContext';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose, 
   initialMode = 'signin' 
 }) => {
+  const { showAlert } = useAlert();
   const [mode, setMode] = useState<'signin' | 'signup'>(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,8 +48,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         if (error) throw error;
         
         showAlert('success', '🎉 Welcome to FitFlow!', `Account created successfully for ${name}. You can now sign in and start your fitness journey!`);
-        alert('Account created successfully! You can now sign in.');
         setMode('signin');
+        onClose();
       } else {
         // Simulate processing time for better UX
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -60,12 +62,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         if (error) throw error;
         
         showAlert('success', '👋 Welcome Back!', 'You have successfully signed in. Ready to continue your fitness journey?');
+        onClose();
       }
     } catch (error: any) {
       setError(error.message);
       showAlert('error', '🔒 Authentication Error', error.message || 'Please check your credentials and try again.');
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   const resetForm = () => {
